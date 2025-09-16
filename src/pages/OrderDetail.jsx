@@ -50,25 +50,25 @@ export default function OrderDetail() {
   };
 
   return (
-    <div className="w-full max-w-xl mx-auto bg-white rounded shadow p-2 sm:p-6 mt-4">
+    <div className="w-full max-w-xl mx-auto card mt-4">
       <h2 className="text-lg sm:text-2xl font-bold mb-4 text-center sm:text-left">작업지시 상세</h2>
-      <div className="border rounded-lg p-2 sm:p-4 mb-6 bg-gray-50">
+      <div className="card bg-gradient-to-br from-blue-50 to-white mb-6">
         {editMode ? (
           <form onSubmit={handleSave} className="flex flex-col gap-2 text-[11px] sm:text-base">
             <div className="flex flex-col sm:flex-row gap-2">
               <div className="flex-1">
                 <label className="block text-[11px] text-gray-500 mb-1">ID</label>
-                <input name="id" value={form.id} onChange={handleChange} className="border p-2 rounded w-full bg-gray-100 text-[11px] sm:text-base" readOnly />
+                <input name="id" value={form.id} onChange={handleChange} className="input w-full bg-gray-100 text-[11px] sm:text-base" readOnly />
               </div>
               <div className="flex-1">
                 <label className="block text-[11px] text-gray-500 mb-1">제목</label>
-                <input name="title" value={form.title} onChange={handleChange} className="border p-2 rounded w-full text-[11px] sm:text-base" />
+                <input name="title" value={form.title} onChange={handleChange} className="input w-full text-[11px] sm:text-base" />
               </div>
             </div>
             <div className="flex flex-col sm:flex-row gap-2">
               <div className="flex-1">
                 <label className="block text-[11px] text-gray-500 mb-1">상태</label>
-                <select name="status" value={form.status} onChange={handleChange} className="border p-2 rounded w-full text-[11px] sm:text-base">
+                <select name="status" value={form.status} onChange={handleChange} className="input w-full text-[11px] sm:text-base">
                   <option value="대기">대기</option>
                   <option value="진행중">진행중</option>
                   <option value="완료">완료</option>
@@ -76,12 +76,12 @@ export default function OrderDetail() {
               </div>
               <div className="flex-1">
                 <label className="block text-[11px] text-gray-500 mb-1">작업자</label>
-                <input name="assignedTo" value={form.assignedTo} onChange={handleChange} className="border p-2 rounded w-full text-[11px] sm:text-base" />
+                <input name="assignedTo" value={form.assignedTo} onChange={handleChange} className="input w-full text-[11px] sm:text-base" />
               </div>
             </div>
             <div>
               <label className="block text-[11px] text-gray-500 mb-1">설명</label>
-              <input name="description" value={form.description || ""} onChange={handleChange} className="border p-2 rounded w-full text-[11px] sm:text-base" placeholder="설명" />
+              <input name="description" value={form.description || ""} onChange={handleChange} className="input w-full text-[11px] sm:text-base" placeholder="설명" />
             </div>
             {/* 파일 첨부 UI */}
             <div>
@@ -92,7 +92,7 @@ export default function OrderDetail() {
                   {files.map((file, idx) => (
                     <li key={idx} className="flex items-center gap-2 mb-1">
                       <span>{file.name}</span>
-                      <button type="button" onClick={() => handleFileRemove(idx)} className="text-red-500 text-[11px]">삭제</button>
+                      <button type="button" onClick={() => handleFileRemove(idx)} className="btn-secondary text-red-500 text-[11px]">삭제</button>
                     </li>
                   ))}
                 </ul>
@@ -102,9 +102,9 @@ export default function OrderDetail() {
               {isLoading ? (
                 <div className="flex justify-center w-full sm:w-auto"><Spinner /></div>
               ) : (
-                <button type="submit" className="bg-blue-600 text-white px-3 py-2 rounded w-full sm:w-auto text-[11px] sm:text-base">저장</button>
+                <button type="submit" className="btn-primary w-full sm:w-auto text-[11px] sm:text-base">저장</button>
               )}
-              <button type="button" onClick={() => setEditMode(false)} className="bg-gray-300 px-3 py-2 rounded w-full sm:w-auto text-[11px] sm:text-base">취소</button>
+              <button type="button" onClick={() => setEditMode(false)} className="btn-secondary w-full sm:w-auto text-[11px] sm:text-base">취소</button>
             </div>
           </form>
         ) : (
@@ -123,10 +123,10 @@ export default function OrderDetail() {
                 <span
                   className={
                     order.status === '완료'
-                      ? 'bg-green-100 text-green-700 px-2 py-1 rounded text-[11px] font-semibold'
+                      ? 'badge badge-status badge-status-done'
                       : order.status === '진행중'
-                      ? 'bg-yellow-100 text-yellow-700 px-2 py-1 rounded text-[11px] font-semibold'
-                      : 'bg-gray-100 text-gray-700 px-2 py-1 rounded text-[11px] font-semibold'
+                      ? 'badge badge-status badge-status-progress'
+                      : 'badge badge-status badge-status-waiting'
                   }
                 >
                   {order.status}
@@ -167,14 +167,14 @@ export default function OrderDetail() {
         <div className="flex gap-2 mb-2">
           {!editMode && (
             <>
-              <button onClick={() => setEditMode(true)} className="px-3 py-2 bg-yellow-400 rounded w-full sm:w-auto text-[11px] sm:text-base">수정</button>
-              <button onClick={handleDelete} className="px-3 py-2 bg-red-500 text-white rounded w-full sm:w-auto text-[11px] sm:text-base">삭제</button>
+              <button onClick={() => setEditMode(true)} className="btn-secondary w-full sm:w-auto text-[11px] sm:text-base">수정</button>
+              <button onClick={handleDelete} className="btn-secondary bg-red-500 text-white w-full sm:w-auto text-[11px] sm:text-base">삭제</button>
             </>
           )}
         </div>
       </div>
       {/* 이력 관리 샘플 섹션 */}
-      <div className="bg-gray-100 rounded p-2 sm:p-3 mb-4">
+      <div className="card bg-gray-100 rounded p-2 sm:p-3 mb-4">
         <div className="font-bold text-[11px] sm:text-sm mb-2 text-gray-700">작업 이력</div>
         <ul className="text-[11px] text-gray-600 list-disc pl-5">
           <li>2025-09-10 09:00 생성 (홍길동)</li>
@@ -182,7 +182,7 @@ export default function OrderDetail() {
           <li>2025-09-15 11:10 설명 추가 (김철수)</li>
         </ul>
       </div>
-      <button onClick={() => navigate(-1)} className="px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 w-full sm:w-auto text-[11px] sm:text-base">목록으로</button>
+      <button onClick={() => navigate(-1)} className="btn-primary w-full sm:w-auto text-[11px] sm:text-base">목록으로</button>
     </div>
   );
 }

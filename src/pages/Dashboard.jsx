@@ -93,48 +93,48 @@ export default function Dashboard() {
     <div className="max-w-4xl mx-auto p-2 sm:p-4">
       <h2 className="text-lg sm:text-2xl font-bold mb-4 sm:mb-6">대시보드</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 mb-4 sm:mb-8">
-        <div className="bg-white rounded shadow p-2 sm:p-4">
+        <div className="card">
           <div className="font-bold mb-2 text-[11px] sm:text-base">작업지시 현황</div>
           <div className="flex gap-1 sm:gap-2 mb-3 sm:mb-4">
             {orderStats.map(stat => (
-              <div key={stat.label} className={`flex-1 rounded p-2 text-center text-[11px] sm:text-xs text-white font-semibold ${stat.color}`}>
+              <div key={stat.label} className={`flex-1 rounded-lg p-2 text-center text-[11px] sm:text-xs text-white font-semibold ${stat.color} shadow-sm`}> 
                 {stat.label}<br />{stat.count}건
               </div>
             ))}
           </div>
-          <button onClick={() => navigate("/orders")} className="px-3 py-2 bg-blue-600 text-white rounded w-full text-[11px] sm:text-base">작업지시 목록</button>
+          <button onClick={() => navigate("/orders")} className="btn-primary w-full text-[11px] sm:text-base">작업지시 목록</button>
         </div>
-        <div className="bg-white rounded shadow p-2 sm:p-4">
+        <div className="card">
           <div className="font-bold mb-2 text-[11px] sm:text-base">작업자 현황</div>
           <div className="flex gap-1 sm:gap-2 mb-3 sm:mb-4">
             {workerStats.map(stat => (
-              <div key={stat.label} className={`flex-1 rounded p-2 text-center text-[11px] sm:text-xs text-white font-semibold ${stat.color}`}>
+              <div key={stat.label} className={`flex-1 rounded-lg p-2 text-center text-[11px] sm:text-xs text-white font-semibold ${stat.color} shadow-sm`}>
                 {stat.label}<br />{stat.count}명
               </div>
             ))}
           </div>
-          <button onClick={() => navigate("/workers")} className="px-3 py-2 bg-blue-600 text-white rounded w-full text-[11px] sm:text-base">작업자 목록</button>
+          <button onClick={() => navigate("/workers")} className="btn-primary w-full text-[11px] sm:text-base">작업자 목록</button>
         </div>
       </div>
       {/* 차트/그래프 */}
       <div className="bg-gray-50 rounded p-2 sm:p-4 mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-        <div className="flex flex-col items-center min-w-[220px] max-w-[340px] w-full mx-auto bg-white rounded shadow p-2 md:p-4">
+        <div className="card flex flex-col items-center min-w-[220px] max-w-[340px] w-full mx-auto">
           <div className="font-bold mb-2 text-[11px] sm:text-base">작업지시 상태별 파이차트</div>
           <Pie data={orderPieData} />
         </div>
-        <div className="flex flex-col items-center min-w-[220px] max-w-[340px] w-full mx-auto bg-white rounded shadow p-2 md:p-4">
+        <div className="card flex flex-col items-center min-w-[220px] max-w-[340px] w-full mx-auto">
           <div className="font-bold mb-2 text-[11px] sm:text-base">작업지시 상태별 도넛차트</div>
           <Doughnut data={orderDoughnutData} />
         </div>
-        <div className="flex flex-col items-center min-w-[220px] max-w-[340px] w-full mx-auto bg-white rounded shadow p-2 md:p-4">
+        <div className="card flex flex-col items-center min-w-[220px] max-w-[340px] w-full mx-auto">
           <div className="font-bold mb-2 text-[11px] sm:text-base">작업지시 월별 생성수</div>
           <Line data={orderMonthlyLineData} options={orderMonthlyLineOptions} />
         </div>
-        <div className="flex flex-col items-center min-w-[220px] max-w-[340px] w-full mx-auto bg-white rounded shadow p-2 md:p-4">
+        <div className="card flex flex-col items-center min-w-[220px] max-w-[340px] w-full mx-auto">
           <div className="font-bold mb-2 text-[11px] sm:text-base">작업자 역할별 바차트</div>
           <Bar data={workerBarData} options={workerBarOptions} />
         </div>
-        <div className="flex flex-col items-center min-w-[220px] max-w-[340px] w-full mx-auto bg-white rounded shadow p-2 md:p-4">
+        <div className="card flex flex-col items-center min-w-[220px] max-w-[340px] w-full mx-auto">
           <div className="font-bold mb-2 text-[11px] sm:text-base">작업자 역할별 파이차트</div>
           <Pie data={workerPieData} />
         </div>

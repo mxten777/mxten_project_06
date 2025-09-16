@@ -1,3 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* 고급스러운 카드/버튼/입력 등 공통 스타일 */
+.card {
+	@apply bg-white rounded-2xl shadow-xl p-4 transition-shadow duration-200 hover:shadow-2xl;
+}
+.btn-primary {
+	@apply bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-semibold rounded-lg px-4 py-2 shadow hover:from-blue-600 hover:to-indigo-600 transition-colors duration-200;
+}
+.btn-secondary {
+	@apply bg-gray-100 text-gray-700 font-semibold rounded-lg px-4 py-2 shadow hover:bg-gray-200 transition-colors duration-200;
+}
+.input {
+	@apply border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-150;
+}
+.badge {
+	@apply inline-block px-2 py-1 rounded-full text-xs font-bold shadow-sm;
+}
+.badge-status {
+	@apply text-white;
+}
+.badge-status-waiting {
+	@apply bg-gray-400;
+}
+.badge-status-progress {
+	@apply bg-yellow-400 text-yellow-900;
+}
+.badge-status-done {
+	@apply bg-green-500;
+}
+.badge-status-delay {
+	@apply bg-red-500;
+}
