@@ -14,6 +14,8 @@ import WorkerDetail from "./pages/WorkerDetail";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
+import Report from "./pages/Report";
+import ScanOrder from "./pages/ScanOrder";
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
             <Route path="/workers/:id" element={<WorkerDetail />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/report" element={<Report />} />
+            <Route path="/scan" element={<ScanOrder />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Layout>

@@ -28,17 +28,17 @@ export default function Register() {
   };
 
   return (
-    <div className="w-full max-w-sm mx-auto bg-white rounded shadow p-4 sm:p-6">
+    <div className="card w-full max-w-sm mx-auto p-4 sm:p-6 bg-gradient-to-br from-blue-50 to-white">
       <h2 className="text-xl sm:text-2xl font-bold mb-4 text-center sm:text-left">회원가입</h2>
       <form className="flex flex-col gap-3 sm:gap-4" onSubmit={handleSubmit}>
-        <input type="text" name="name" value={form.name} onChange={handleChange} placeholder="이름" className="border p-2 rounded text-sm sm:text-base" />
-        <input type="email" name="email" value={form.email} onChange={handleChange} placeholder="이메일" className="border p-2 rounded text-sm sm:text-base" />
-        <input type="password" name="password" value={form.password} onChange={handleChange} placeholder="비밀번호" className="border p-2 rounded text-sm sm:text-base" />
+        <input type="text" name="name" value={form.name} onChange={handleChange} placeholder="이름" className="input text-sm sm:text-base" />
+        <input type="email" name="email" value={form.email} onChange={handleChange} placeholder="이메일" className="input text-sm sm:text-base" />
+        <input type="password" name="password" value={form.password} onChange={handleChange} placeholder="비밀번호" className="input text-sm sm:text-base" />
         {error && <div className="text-red-600 text-xs sm:text-sm">{error}</div>}
         {isLoading ? (
           <div className="flex justify-center"><Spinner /></div>
         ) : (
-          <button type="submit" className="bg-blue-600 text-white py-2 rounded hover:bg-blue-700 w-full sm:w-auto">회원가입</button>
+          <button type="submit" className="btn-primary w-full sm:w-auto">회원가입</button>
         )}
       </form>
       <div className="mt-4 text-xs sm:text-sm text-center">

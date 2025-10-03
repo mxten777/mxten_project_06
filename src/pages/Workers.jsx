@@ -116,52 +116,52 @@ export default function Workers() {
       <h2 className="text-xl sm:text-2xl font-bold mb-4 text-center sm:text-left">작업자 목록</h2>
 
       {/* 검색/필터 UI */}
-      <div className="flex flex-col sm:flex-row gap-2 mb-4">
+      <div className="card flex flex-col sm:flex-row gap-2 mb-4 bg-gradient-to-br from-blue-50 to-white">
         <input
           type="text"
           value={search}
           onChange={e => setSearch(e.target.value)}
           placeholder="ID, 이름, 이메일 검색"
-          className="border p-2 rounded flex-1 text-[11px] sm:text-sm"
+          className="input flex-1 text-[11px] sm:text-sm"
         />
         <select
           value={roleFilter}
           onChange={e => setRoleFilter(e.target.value)}
-          className="border p-2 rounded text-[11px] sm:text-sm w-full sm:w-40"
+          className="input text-[11px] sm:text-sm w-full sm:w-40"
         >
           <option value="">전체 역할</option>
           <option value="작업자">작업자</option>
           <option value="관리자">관리자</option>
         </select>
-  <button onClick={handleAdd} className="px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 text-[11px] sm:text-base w-full sm:w-auto">작업자 추가</button>
+        <button onClick={handleAdd} className="btn-primary w-full sm:w-auto text-[11px] sm:text-base">작업자 추가</button>
       </div>
 
       <Modal open={showModal} onClose={() => setShowModal(false)} title={editIdx === null ? "작업자 추가" : "작업자 수정"}>
         <form onSubmit={handleSubmit} className="flex flex-col gap-2">
           <div className="flex flex-col sm:flex-row gap-2">
-            <input name="id" value={form.id} onChange={handleChange} placeholder="ID" className="border p-2 rounded flex-1 text-sm sm:text-base" />
-            <input name="name" value={form.name} onChange={handleChange} placeholder="이름" className="border p-2 rounded flex-1 text-sm sm:text-base" />
+            <input name="id" value={form.id} onChange={handleChange} placeholder="ID" className="input flex-1 text-sm sm:text-base" />
+            <input name="name" value={form.name} onChange={handleChange} placeholder="이름" className="input flex-1 text-sm sm:text-base" />
           </div>
           <div className="flex flex-col sm:flex-row gap-2">
-            <select name="role" value={form.role} onChange={handleChange} className="border p-2 rounded flex-1 text-sm sm:text-base">
+            <select name="role" value={form.role} onChange={handleChange} className="input flex-1 text-sm sm:text-base">
               <option value="작업자">작업자</option>
               <option value="관리자">관리자</option>
             </select>
-            <input name="email" value={form.email} onChange={handleChange} placeholder="이메일" className="border p-2 rounded flex-1 text-sm sm:text-base" />
+            <input name="email" value={form.email} onChange={handleChange} placeholder="이메일" className="input flex-1 text-sm sm:text-base" />
           </div>
           <div className="flex gap-2 mt-2 flex-col sm:flex-row">
             {isLoading ? (
               <div className="flex justify-center w-full sm:w-auto"><Spinner /></div>
             ) : (
-              <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded w-full sm:w-auto">{editIdx === null ? "추가" : "수정"}</button>
+              <button type="submit" className="btn-primary w-full sm:w-auto">{editIdx === null ? "추가" : "수정"}</button>
             )}
-            <button type="button" onClick={() => setShowModal(false)} className="bg-gray-300 px-4 py-2 rounded w-full sm:w-auto">취소</button>
+            <button type="button" onClick={() => setShowModal(false)} className="btn-secondary w-full sm:w-auto">취소</button>
           </div>
         </form>
       </Modal>
 
-      <div className="overflow-x-auto pb-2">
-        <table className="w-full border bg-white rounded shadow text-[11px] sm:text-sm md:text-base min-w-[600px] whitespace-nowrap">
+      <div className="card overflow-x-auto pb-2">
+        <table className="w-full bg-white rounded-2xl shadow text-[11px] sm:text-sm md:text-base min-w-[600px] whitespace-nowrap">
           <thead>
             <tr className="bg-blue-100">
               <th className="p-2 border cursor-pointer select-none" onClick={() => handleSort("id")}>ID {sortBy === "id" && (sortDir === "asc" ? "▲" : "▼")}</th>
@@ -189,8 +189,8 @@ export default function Workers() {
                     <span
                       className={
                         worker.role === '관리자'
-                          ? 'bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs font-semibold'
-                          : 'bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs font-semibold'
+                          ? 'badge badge-status badge-status-done'
+                          : 'badge badge-status badge-status-waiting'
                       }
                     >
                       {worker.role}
@@ -198,8 +198,8 @@ export default function Workers() {
                   </td>
                   <td className="p-2 border">{worker.email}</td>
                   <td className="p-2 border text-center">
-                    <button onClick={e => { e.stopPropagation(); handleEdit((page - 1) * rowsPerPage + idx); }} className="text-[11px] px-2 py-1 bg-yellow-400 rounded mr-2 mb-1 sm:mb-0">수정</button>
-                    <button onClick={e => { e.stopPropagation(); handleDelete((page - 1) * rowsPerPage + idx); }} className="text-[11px] px-2 py-1 bg-red-500 text-white rounded">삭제</button>
+                    <button onClick={e => { e.stopPropagation(); handleEdit((page - 1) * rowsPerPage + idx); }} className="btn-secondary text-[11px] px-2 py-1 mr-2 mb-1 sm:mb-0">수정</button>
+                    <button onClick={e => { e.stopPropagation(); handleDelete((page - 1) * rowsPerPage + idx); }} className="btn-secondary bg-red-500 text-white text-[11px] px-2 py-1">삭제</button>
                   </td>
                 </tr>
               ))

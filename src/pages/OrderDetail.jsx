@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useToast } from "../components/Toast";
 import Spinner from "../components/Spinner";
+import QRCodeBox from "../components/QRCodeBox";
 
 export default function OrderDetail() {
   const location = useLocation();
@@ -183,6 +184,11 @@ export default function OrderDetail() {
         </ul>
       </div>
       <button onClick={() => navigate(-1)} className="btn-primary w-full sm:w-auto text-[11px] sm:text-base">목록으로</button>
+
+      {/* 작업지시서 QR코드 표시 */}
+      <div className="mt-6">
+        <QRCodeBox value={order.id || "NO_ID"} label="작업지시서 QR코드" size={128} />
+      </div>
     </div>
   );
 }

@@ -162,7 +162,50 @@ export default function Orders() {
         </form>
       </Modal>
 
-      <div className="card overflow-x-auto pb-2">
+      {/* 모바일: 카드 형태 표시 */}
+      <div className="block sm:hidden">
+        {pagedOrders.length === 0 ? (
+          <div className="card text-center text-gray-400 py-8">검색/필터 결과가 없습니다.</div>
+        ) : (
+          pagedOrders.map((order, idx) => (
+            <div key={order.id} className="card mb-4 bg-gradient-to-br from-blue-50 to-white">
+              <div className="flex justify-between items-start mb-2">
+                <button
+                  className="text-blue-600 underline hover:text-blue-800 font-bold text-sm"
+                  onClick={() => navigate(`/orders/${order.id}`, { state: { order, idx } })}
+                >
+                  {order.id}
+                </button>
+                <span
+                  className={
+                    order.status === '완료'
+                      ? 'badge badge-status badge-status-done'
+                      : order.status === '진행중'
+                      ? 'badge badge-status badge-status-progress'
+                      : 'badge badge-status badge-status-waiting'
+                  }
+                >
+                  {order.status}
+                </span>
+              </div>
+              <div className="text-sm font-medium mb-1">{order.title}</div>
+              <div className="text-xs text-gray-600 mb-3">작업자: {order.assignedTo}</div>
+              {order.status === '진행중' && (
+                <div className="w-full bg-gray-200 rounded h-2 mb-3">
+                  <div className="bg-yellow-400 h-2 rounded" style={{ width: '60%' }}></div>
+                </div>
+              )}
+              <div className="flex gap-2">
+                <button onClick={() => handleEdit((page - 1) * rowsPerPage + idx)} className="btn-secondary text-xs px-2 py-1 flex-1">수정</button>
+                <button onClick={() => handleDelete((page - 1) * rowsPerPage + idx)} className="btn-secondary bg-red-500 text-white text-xs px-2 py-1 flex-1">삭제</button>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+
+      {/* 데스크톱: 테이블 형태 표시 */}
+      <div className="hidden sm:block card overflow-x-auto pb-2">
         <table className="w-full bg-white rounded-2xl shadow text-[11px] sm:text-sm md:text-base min-w-[600px] whitespace-nowrap">
           <thead>
             <tr className="bg-blue-100">
@@ -219,46 +262,47 @@ export default function Orders() {
               ))
             )}
           </tbody>
-  </table>
-        {/* 페이지네이션 UI */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-2 mt-4">
-          <div className="flex items-center gap-2">
-            <span className="text-xs sm:text-sm">페이지당 행:</span>
-            <select
-              className="border rounded p-1 text-xs sm:text-sm"
-              value={rowsPerPage}
-              onChange={e => setRowsPerPage(Number(e.target.value))}
-            >
-              {[5, 10, 20, 50].map(n => (
-                <option key={n} value={n}>{n}</option>
-              ))}
-            </select>
-          </div>
-          <div className="flex items-center gap-1">
-            <button
-              className="px-2 py-1 rounded border bg-gray-100 disabled:opacity-50"
-              onClick={() => setPage(1)}
-              disabled={page === 1}
-            >처음</button>
-            <button
-              className="px-2 py-1 rounded border bg-gray-100 disabled:opacity-50"
-              onClick={() => setPage(p => Math.max(1, p - 1))}
-              disabled={page === 1}
-            >이전</button>
-            <span className="px-2 text-xs sm:text-sm">{page} / {totalPages}</span>
-            <button
-              className="px-2 py-1 rounded border bg-gray-100 disabled:opacity-50"
-              onClick={() => setPage(p => Math.min(totalPages, p + 1))}
-              disabled={page === totalPages}
-            >다음</button>
-            <button
-              className="px-2 py-1 rounded border bg-gray-100 disabled:opacity-50"
-              onClick={() => setPage(totalPages)}
-              disabled={page === totalPages}
-            >마지막</button>
-          </div>
-          <div className="text-xs sm:text-sm text-gray-500">총 {totalRows}건</div>
+        </table>
+      </div>
+
+      {/* 페이지네이션 UI */}
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-2 mt-4">
+        <div className="flex items-center gap-2">
+          <span className="text-xs sm:text-sm">페이지당 행:</span>
+          <select
+            className="border rounded p-1 text-xs sm:text-sm"
+            value={rowsPerPage}
+            onChange={e => setRowsPerPage(Number(e.target.value))}
+          >
+            {[5, 10, 20, 50].map(n => (
+              <option key={n} value={n}>{n}</option>
+            ))}
+          </select>
         </div>
+        <div className="flex items-center gap-1">
+          <button
+            className="px-2 py-1 rounded border bg-gray-100 disabled:opacity-50"
+            onClick={() => setPage(1)}
+            disabled={page === 1}
+          >처음</button>
+          <button
+            className="px-2 py-1 rounded border bg-gray-100 disabled:opacity-50"
+            onClick={() => setPage(p => Math.max(1, p - 1))}
+            disabled={page === 1}
+          >이전</button>
+          <span className="px-2 text-xs sm:text-sm">{page} / {totalPages}</span>
+          <button
+            className="px-2 py-1 rounded border bg-gray-100 disabled:opacity-50"
+            onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+            disabled={page === totalPages}
+          >다음</button>
+          <button
+            className="px-2 py-1 rounded border bg-gray-100 disabled:opacity-50"
+            onClick={() => setPage(totalPages)}
+            disabled={page === totalPages}
+          >마지막</button>
+        </div>
+        <div className="text-xs sm:text-sm text-gray-500">총 {totalRows}건</div>
       </div>
     </div>
   );

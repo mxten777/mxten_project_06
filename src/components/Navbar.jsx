@@ -12,14 +12,12 @@ const navItems = [
 export default function Navbar() {
   const location = useLocation();
   return (
-  <nav className="flex flex-wrap gap-1 sm:gap-4 p-1 sm:p-4 bg-blue-100 border-b border-blue-200 justify-center md:justify-start text-[11px] sm:text-base">
+    <nav className="app-navbar shadow-md">
       {navItems.map((item) => (
         <Link
           key={item.to}
           to={item.to}
-          className={`px-2 sm:px-3 py-1 rounded hover:bg-blue-200 transition-colors font-medium text-[11px] sm:text-base ${
-            location.pathname === item.to ? "bg-blue-600 text-white" : "text-blue-700"
-          }`}
+          className={`nav-link transition-all duration-150 ${location.pathname === item.to ? "nav-link-active scale-105" : ""}`}
         >
           {item.label}
         </Link>
