@@ -6,6 +6,7 @@ const navItems = [
   { to: "/dashboard", label: "대시보드" },
   { to: "/orders", label: "작업지시" },
   { to: "/workers", label: "작업자" },
+  { to: "/scan", label: "QR스캔" },
   { to: "/login", label: "로그인" },
 ];
 
